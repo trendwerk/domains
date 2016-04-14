@@ -13,7 +13,11 @@ final class Urls
 
     public function homeUrl()
     {
-        return $this->buildUrl($this->getDomain());
+        if ($domain = $this->getDomain()) {
+            return $this->buildUrl($domain);
+        }
+
+        return false;
     }
 
     public function redirect()
