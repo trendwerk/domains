@@ -16,6 +16,7 @@ namespace Trendwerk\Domains;
 include_once('lib/autoload.php');
 
 new Plugin();
+new Urls();
 
 register_activation_hook(__FILE__, array('\Trendwerk\Domains\Installer', 'createTable'));
 register_activation_hook(__FILE__, array('\Trendwerk\Domains\Installer', 'setupSunrise'));
