@@ -7,11 +7,12 @@ final class Urls
 
     public function __construct()
     {
-        add_filter('pre_option_home', array($this, 'homeUrl'));
+        add_filter('pre_option_home', array($this, 'getDomainUrl'));
+        add_filter('pre_option_siteurl', array($this, 'getDomainUrl'));
         add_action('template_redirect', array($this, 'redirect'));
     }
 
-    public function homeUrl()
+    public function getDomainUrl()
     {
         if ($domain = $this->getDomain()) {
             return $this->buildUrl($domain);
