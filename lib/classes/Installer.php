@@ -5,13 +5,11 @@ final class Installer
 {
     public static function createTable()
     {
-        include_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-
         global $wpdb;
 
-        $table = $wpdb->prefix . 'domains';
+        include_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        dbDelta("CREATE TABLE {$table} (
+        dbDelta("CREATE TABLE {$wpdb->domains} (
             id bigint(20) NOT NULL auto_increment,
             blog_id bigint(20) NOT NULL,
             domain varchar(255) NOT NULL,
