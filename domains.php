@@ -15,4 +15,4 @@ namespace Trendwerk\Domains;
 
 include_once('lib/autoload.php');
 
-register_activation_hook(__FILE__, array('\Trendwerk\Domains\Sunrise', 'add'));
+register_activation_hook(__FILE__, array('\Trendwerk\Domains\Sunrise', 'setup'));
