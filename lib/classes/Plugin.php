@@ -14,6 +14,6 @@ final class Plugin
     {
         global $wpdb;
 
-        $wpdb->domains = $wpdb->prefix . self::$table;
+        $wpdb->domains = $wpdb->base_prefix . self::$table;
     }
 }
