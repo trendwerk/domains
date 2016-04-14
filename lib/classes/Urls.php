@@ -3,31 +3,58 @@ namespace Trendwerk\Domains;
 
 final class Urls
 {
+    private $domains = array();
+
     public function __construct()
     {
+        add_filter('pre_option_home', array($this, 'homeUrl'));
         add_action('template_redirect', array($this, 'redirect'));
+    }
+
+    public function homeUrl()
+    {
+        return $this->buildUrl($this->getDomain());
     }
 
     public function redirect()
     {
         global $current_blog;
+
         $domain = $this->getDomain();
 
         if ($domain && $domain != $current_blog->domain) {
-            global $wp;
+            $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
+            $url = $this->buildUrl($domain, $request);
 
-            $url = trailingslashit($this->getProtocol() . trailingslashit($domain) . $wp->request);
-
-            wp_redirect($url, 301);
+            wp_redirect(trailingslashit($url), 301);
             die();
         }
     }
 
     private function getDomain()
     {
+        $blogId = get_current_blog_id();
+
+        if (isset($this->domains[$blogId])) {
+            return $this->domains[$blogId];
+        }
+
         global $wpdb;
 
-        return $wpdb->get_var($wpdb->prepare("SELECT domain FROM {$wpdb->domains} WHERE blog_id = '%s'", get_current_blog_id()));
+        $domain = $wpdb->get_var($wpdb->prepare("SELECT domain FROM {$wpdb->domains} WHERE blog_id = '%s'", $blogId));
+
+        if ($domain) {
+            $this->domains[$blogId] = $domain;
+        } else {
+            $this->domains[$blogId] = false;
+        }
+
+        return $this->domains[$blogId];
+    }
+
+    private function buildUrl($domain, $request = '')
+    {
+        return $this->getProtocol() . $domain . $request;
     }
 
     private function getProtocol()
