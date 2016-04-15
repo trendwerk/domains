@@ -26,10 +26,12 @@ final class Sunrise
         return $blog;
     }
 
-    public function getSite($siteId, $blogId)
+    public function getSite($siteId)
     {
+        global $wpdb;
+
         $site = \WP_Network::get_instance($siteId);
-        $site->blog_id = absint($blogId);
+        $site->blog_id = $wpdb->get_var("SELECT blog_id FROM {$wpdb->blogs} WHERE domain = '{$site->domain}' AND path = '{$site->path}'");
 
         return $site;
     }

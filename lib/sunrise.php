@@ -22,6 +22,6 @@ if (! $current_blog) {
     return;
 }
 
-$current_site = $sunrise->getSite($current_blog->site_id, $current_blog->blog_id);
+$blog_id = $current_blog->blog_id;
 
-$blog_id = $current_site->blog_id;
+$current_site = $sunrise->getSite($current_blog->site_id);
