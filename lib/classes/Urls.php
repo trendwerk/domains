@@ -15,7 +15,7 @@ final class Urls
     public function getDomainUrl()
     {
         if ($domain = $this->getDomain()) {
-            return $this->buildUrl($domain);
+            return Helpers\Url::build($domain);
         }
 
         return false;
@@ -29,7 +29,7 @@ final class Urls
 
         if ($domain && $domain != $current_blog->domain) {
             $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
-            $url = $this->buildUrl($domain, $request);
+            $url = Helpers\Url::build($domain, $request);
 
             wp_redirect(trailingslashit($url), 301);
             die();
@@ -55,15 +55,5 @@ final class Urls
         }
 
         return $this->domains[$blogId];
-    }
-
-    private function buildUrl($domain, $request = '')
-    {
-        return $this->getProtocol() . $domain . $request;
-    }
-
-    private function getProtocol()
-    {
-        return is_ssl() ? 'https://' : 'http://';
     }
 }

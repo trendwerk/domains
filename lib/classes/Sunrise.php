@@ -35,4 +35,21 @@ final class Sunrise
 
         return $site;
     }
+
+    public function getContentUrl($blog)
+    {
+        if (! $blog) {
+            $domain = DOMAIN_CURRENT_SITE;
+        } else {
+            $domain = $blog->domain;
+        }
+
+        if (defined('CONTENT_DIR')) {
+            $contentDir = CONTENT_DIR;
+        } else {
+            $contentDir = '/wp-content';
+        }
+
+        return Helpers\Url::build($domain, $contentDir);
+    }
 }

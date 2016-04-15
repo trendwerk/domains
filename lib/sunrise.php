@@ -18,6 +18,10 @@ $sunrise = new Sunrise();
  */
 $current_blog = $sunrise->getBlog();
 
+if (! defined('WP_CONTENT_URL')) {
+    define('WP_CONTENT_URL', $sunrise->getContentUrl($current_blog));
+}
+
 if (! $current_blog) {
     return;
 }
