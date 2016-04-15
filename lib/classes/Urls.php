@@ -9,6 +9,7 @@ final class Urls
     {
         add_filter('pre_option_home', array($this, 'getDomainUrl'));
         add_filter('pre_option_siteurl', array($this, 'getDomainUrl'));
+        add_action('admin_init', array($this, 'redirect'));
         add_action('template_redirect', array($this, 'redirect'));
     }
 
