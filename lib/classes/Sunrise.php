@@ -14,7 +14,7 @@ final class Sunrise
             return;
         }
 
-        $blog = $wpdb->get_row("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '{$domain->blog_id}'");
+        $blog = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '%s'", $domain->blog_id));
 
         if (! $blog) {
             return;
@@ -31,7 +31,7 @@ final class Sunrise
         global $wpdb;
 
         $site = \WP_Network::get_instance($siteId);
-        $site->blog_id = $wpdb->get_var("SELECT blog_id FROM {$wpdb->blogs} WHERE domain = '{$site->domain}' AND path = '{$site->path}'");
+        $site->blog_id = $wpdb->get_var($wpdb->prepare("SELECT blog_id FROM {$wpdb->blogs} WHERE domain = '%s' AND path = '%s'", $site->domain, $site->path));
 
         return $site;
     }
