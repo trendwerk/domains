@@ -15,8 +15,8 @@ final class Urls
 
     public function getDomainUrl()
     {
-        if ($domain = Helpers\Domain::get()) {
-            return Helpers\Url::build($domain->domain);
+        if ($domain = Utilities\Domain::get()) {
+            return Utilities\Url::build($domain->domain);
         }
 
         return false;
@@ -26,11 +26,11 @@ final class Urls
     {
         global $current_blog;
 
-        $domain = Helpers\Domain::get();
+        $domain = Utilities\Domain::get();
 
         if ($domain && $domain->domain != $current_blog->domain) {
             $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
-            $url = Helpers\Url::build($domain->domain, $request);
+            $url = Utilities\Url::build($domain->domain, $request);
 
             wp_redirect(trailingslashit($url), 301);
             die();

@@ -1,5 +1,5 @@
 <?php
-namespace Trendwerk\Domains\Helpers;
+namespace Trendwerk\Domains\Utilities;
 
 final class Url
 {

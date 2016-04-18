@@ -7,7 +7,7 @@ final class Sunrise
     {
         global $wpdb;
 
-        $domain = Helpers\Domain::get();
+        $domain = Utilities\Domain::get();
 
         if (! $domain) {
             return;
@@ -49,6 +49,6 @@ final class Sunrise
             $contentDir = '/wp-content';
         }
 
-        return Helpers\Url::build($domain, $contentDir);
+        return Utilities\Url::build($domain, $contentDir);
     }
 }
