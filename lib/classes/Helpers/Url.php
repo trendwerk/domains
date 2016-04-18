@@ -8,7 +8,7 @@ final class Url
         return self::getProtocol() . $domain . $request;
     }
 
-    public static function getProtocol()
+    private static function getProtocol()
     {
         return is_ssl() ? 'https://' : 'http://';
     }

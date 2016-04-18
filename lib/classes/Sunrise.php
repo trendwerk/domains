@@ -6,15 +6,14 @@ final class Sunrise
     public function getBlog()
     {
         global $wpdb;
-        Plugin::setupTable();
 
-        $domain = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->domains} WHERE domain = '%s'", $_SERVER['HTTP_HOST']));
+        $domain = Helpers\Domain::get();
 
         if (! $domain) {
             return;
         }
 
-        $blog = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '%s'", $domain->blog_id));
+        $blog = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '%s'", $domain->blogId));
 
         if (! $blog) {
             return;

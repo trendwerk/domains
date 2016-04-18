@@ -15,8 +15,8 @@ final class Urls
 
     public function getDomainUrl()
     {
-        if ($domain = $this->getDomain()) {
-            return Helpers\Url::build($domain);
+        if ($domain = Helpers\Domain::get()) {
+            return Helpers\Url::build($domain->domain);
         }
 
         return false;
@@ -26,35 +26,14 @@ final class Urls
     {
         global $current_blog;
 
-        $domain = $this->getDomain();
+        $domain = Helpers\Domain::get();
 
-        if ($domain && $domain != $current_blog->domain) {
+        if ($domain && $domain->domain != $current_blog->domain) {
             $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
-            $url = Helpers\Url::build($domain, $request);
+            $url = Helpers\Url::build($domain->domain, $request);
 
             wp_redirect(trailingslashit($url), 301);
             die();
         }
-    }
-
-    private function getDomain()
-    {
-        $blogId = get_current_blog_id();
-
-        if (isset($this->domains[$blogId])) {
-            return $this->domains[$blogId];
-        }
-
-        global $wpdb;
-
-        $domain = $wpdb->get_var($wpdb->prepare("SELECT domain FROM {$wpdb->domains} WHERE blog_id = '%s'", $blogId));
-
-        if ($domain) {
-            $this->domains[$blogId] = $domain;
-        } else {
-            $this->domains[$blogId] = false;
-        }
-
-        return $this->domains[$blogId];
     }
 }
