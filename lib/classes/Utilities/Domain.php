@@ -34,7 +34,7 @@ final class Domain
     }
 
     /**
-     * Read domains file
+     * Read domains file and convert to array of domains
      */
     private static function readFile()
     {
