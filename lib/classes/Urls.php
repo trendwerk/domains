@@ -3,17 +3,15 @@ namespace Trendwerk\Domains;
 
 final class Urls
 {
-    private $domains = array();
-
     public function __construct()
     {
-        add_filter('pre_option_home', array($this, 'getDomainUrl'));
-        add_filter('pre_option_siteurl', array($this, 'getDomainUrl'));
+        add_filter('pre_option_home', array($this, 'getDomain'));
+        add_filter('pre_option_siteurl', array($this, 'getDomain'));
         add_action('admin_init', array($this, 'redirect'));
         add_action('template_redirect', array($this, 'redirect'));
     }
 
-    public function getDomainUrl()
+    public function getDomain()
     {
         if ($domain = Utilities\Domain::get()) {
             return Utilities\Url::build($domain->domain);
