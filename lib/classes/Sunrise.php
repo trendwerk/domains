@@ -5,13 +5,13 @@ final class Sunrise
 {
     public function getBlog()
     {
-        global $wpdb;
-
         $domain = Utilities\Domain::get();
 
         if (! $domain) {
             return;
         }
+
+        global $wpdb;
 
         $blog = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->blogs} WHERE blog_id = '%s'", $domain->blogId));
 
