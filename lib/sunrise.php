@@ -10,9 +10,11 @@ if (! defined('WPMU_PLUGIN_DIR')) {
 
 include_once($pluginDirectory . '/domains/lib/autoload.php');
 
+global $wpdb, $current_blog, $blog_id, $current_site;
+
 $dotDomains = new DotDomains();
 
-$sunrise = new Sunrise($dotDomains);
+$sunrise = new Sunrise($wpdb, $dotDomains);
 
 /**
  * Setup WordPress variables

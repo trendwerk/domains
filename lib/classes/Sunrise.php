@@ -7,10 +7,12 @@ use Trendwerk\Domains\Utilities\Url;
 final class Sunrise
 {
     private $domainAdapter;
+    private $wpdb;
 
-    public function __construct(DomainAdapterInterface $domainAdapter)
+    public function __construct(\wpdb $wpdb, DomainAdapterInterface $domainAdapter)
     {
         $this->domainAdapter = $domainAdapter;
+        $this->wpdb = $wpdb;
     }
 
     public function getBlog()
