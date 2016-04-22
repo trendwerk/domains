@@ -7,10 +7,12 @@ use Trendwerk\Domains\Utilities\Url;
 final class UrlHandler
 {
     private $domainAdapter;
+    private $currentBlog;
 
-    public function __construct(DomainAdapterInterface $domainAdapter)
+    public function __construct(DomainAdapterInterface $domainAdapter, \WP_Site $currentBlog)
     {
         $this->domainAdapter = $domainAdapter;
+        $this->currentBlog = $currentBlog;
     }
 
     public function setup()
@@ -33,12 +35,10 @@ final class UrlHandler
 
     public function redirect()
     {
-        global $current_blog;
-
         $domain = $this->domainAdapter->getCurrent();
 
-        if ($domain && $domain->domain != $current_blog->domain) {
-            $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
+        if ($domain && $domain->domain != $this->currentBlog->domain) {
+            $request = str_replace(untrailingslashit($this->currentBlog->path), '', $_SERVER['REQUEST_URI']);
             $url = new Url($domain->domain, $request);
 
             wp_redirect(trailingslashit($url->build()), 301);

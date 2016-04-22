@@ -3,8 +3,10 @@ use Trendwerk\Domains\UrlHandler;
 use Trendwerk\Domains\Utilities\DotDomains;
 
 add_action('muplugins_loaded', function () {
-    $dotDomains = new DotDomains();
+    global $current_blog;
 
-    $urlReplacer = new UrlHandler($dotDomains);
+    $dotDomains = new DotDomains($current_blog);
+
+    $urlReplacer = new UrlHandler($dotDomains, $current_blog);
     $urlReplacer->setup();
 }, 0);
