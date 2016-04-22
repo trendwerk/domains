@@ -1,16 +1,11 @@
 <?php
 namespace Trendwerk\Domains\Utilities;
 
-final class Domain
+final class DotDomains implements DomainAdapterInterface
 {
-    private static $domains;
-
-    /**
-     * Retrieve current domain
-     */
-    public static function get()
+    public function getCurrent()
     {
-        $domains = self::readFile();
+        $domains = $this->readFile();
 
         if ($domains && count($domains) > 0) {
             global $current_blog;
@@ -33,16 +28,9 @@ final class Domain
         }
     }
 
-    /**
-     * Read domains file and convert to array of domains
-     */
-    private static function readFile()
+    private function readFile()
     {
-        if (isset(self::$domains)) {
-            return self::$domains;
-        }
-
-        $file = self::determineFile();
+        $file = $this->determineFile();
 
         if ($file) {
             $domains = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
@@ -58,17 +46,11 @@ final class Domain
                 }, $domains);
             }
 
-            self::$domains = $domains;
-
-            return self::$domains;
+            return $domains;
         }
     }
 
-    /**
-     * Determine where domains file is located
-     * Searches in WordPress root and two folders up
-     */
-    private static function determineFile()
+    private function determineFile()
     {
         $file = '/.domains';
 

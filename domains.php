@@ -11,10 +11,7 @@
  * Version: 0.1.0
  */
 
-namespace Trendwerk\Domains;
-
 include_once('lib/autoload.php');
-
-new Urls();
+include_once('lib/init.php');
 
 register_activation_hook(__FILE__, array('\Trendwerk\Domains\Installer', 'setupSunrise'));

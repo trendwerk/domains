@@ -1,5 +1,6 @@
 <?php
-use Trendwerk\Domains\Sunrise;
+use \Trendwerk\Domains\Sunrise;
+use \Trendwerk\Domains\Utilities\DotDomains;
 
 if (! defined('WPMU_PLUGIN_DIR')) {
     $pluginDirectory = WP_CONTENT_DIR . '/mu-plugins';
@@ -9,7 +10,9 @@ if (! defined('WPMU_PLUGIN_DIR')) {
 
 include_once($pluginDirectory . '/domains/lib/autoload.php');
 
-$sunrise = new Sunrise();
+$dotDomains = new DotDomains();
+
+$sunrise = new Sunrise($dotDomains);
 
 /**
  * Setup WordPress variables

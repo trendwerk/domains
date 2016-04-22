@@ -1,11 +1,21 @@
 <?php
 namespace Trendwerk\Domains;
 
+use Trendwerk\Domains\Utilities\DomainAdapterInterface;
+use Trendwerk\Domains\Utilities\Url;
+
 final class Sunrise
 {
+    private $domainAdapter;
+
+    public function __construct(DomainAdapterInterface $domainAdapter)
+    {
+        $this->domainAdapter = $domainAdapter;
+    }
+
     public function getBlog()
     {
-        $domain = Utilities\Domain::get();
+        $domain = $this->domainAdapter->getCurrent();
 
         if (! $domain) {
             return;
@@ -49,6 +59,8 @@ final class Sunrise
             $contentDir = '/wp-content';
         }
 
-        return Utilities\Url::build($domain, $contentDir);
+        $url = new Url($domain, $contentDir);
+
+        return $url->build();
     }
 }

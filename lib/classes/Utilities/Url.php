@@ -3,12 +3,21 @@ namespace Trendwerk\Domains\Utilities;
 
 final class Url
 {
-    public static function build($domain, $request = '')
+    private $domain;
+    private $request;
+
+    public function __construct($domain, $request = '')
     {
-        return self::getProtocol() . $domain . $request;
+        $this->domain = $domain;
+        $this->request = $request;
     }
 
-    private static function getProtocol()
+    public function build()
+    {
+        return $this->getProtocol() . $this->domain . $this->request;
+    }
+
+    private function getProtocol()
     {
         return is_ssl() ? 'https://' : 'http://';
     }

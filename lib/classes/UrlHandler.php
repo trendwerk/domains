@@ -1,9 +1,19 @@
 <?php
 namespace Trendwerk\Domains;
 
-final class Urls
+use Trendwerk\Domains\Utilities\DomainAdapterInterface;
+use Trendwerk\Domains\Utilities\Url;
+
+final class UrlHandler
 {
-    public function __construct()
+    private $domainAdapter;
+
+    public function __construct(DomainAdapterInterface $domainAdapter)
+    {
+        $this->domainAdapter = $domainAdapter;
+    }
+
+    public function setup()
     {
         add_filter('pre_option_home', array($this, 'getDomain'));
         add_filter('pre_option_siteurl', array($this, 'getDomain'));
@@ -13,8 +23,9 @@ final class Urls
 
     public function getDomain()
     {
-        if ($domain = Utilities\Domain::get()) {
-            return Utilities\Url::build($domain->domain);
+        if ($domain = $this->domainAdapter->getCurrent()) {
+            $url = new Url($domain->domain);
+            return $url->build($domain->domain);
         }
 
         return false;
@@ -24,13 +35,13 @@ final class Urls
     {
         global $current_blog;
 
-        $domain = Utilities\Domain::get();
+        $domain = $this->domainAdapter->getCurrent();
 
         if ($domain && $domain->domain != $current_blog->domain) {
             $request = str_replace(untrailingslashit($current_blog->path), '', $_SERVER['REQUEST_URI']);
-            $url = Utilities\Url::build($domain->domain, $request);
+            $url = new Url($domain->domain, $request);
 
-            wp_redirect(trailingslashit($url), 301);
+            wp_redirect(trailingslashit($url->build()), 301);
             die();
         }
     }
