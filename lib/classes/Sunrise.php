@@ -45,7 +45,7 @@ final class Sunrise
         return $site;
     }
 
-    public function getContentUrl($blog)
+    public function getContentUrl(\stdClass $blog)
     {
         if (! $blog) {
             $domain = DOMAIN_CURRENT_SITE;
