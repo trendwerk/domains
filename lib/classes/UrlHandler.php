@@ -25,7 +25,7 @@ final class UrlHandler
 
     public function getDomain()
     {
-        if ($domain = $this->domainAdapter->getCurrent()) {
+        if ($domain = $this->domainAdapter->getCurrentById()) {
             $url = new Url($domain->domain);
             return $url->build($domain->domain);
         }
@@ -35,7 +35,7 @@ final class UrlHandler
 
     public function redirect()
     {
-        $domain = $this->domainAdapter->getCurrent();
+        $domain = $this->domainAdapter->getCurrentById();
 
         if ($domain && $domain->domain != $this->currentBlog->domain) {
             $request = str_replace(untrailingslashit($this->currentBlog->path), '', $_SERVER['REQUEST_URI']);

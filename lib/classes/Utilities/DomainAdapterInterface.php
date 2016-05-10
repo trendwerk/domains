@@ -3,5 +3,7 @@ namespace Trendwerk\Domains\Utilities;
 
 interface DomainAdapterInterface
 {
-    public function getCurrent();
+    public function getCurrentByDomain();
+    
+    public function getCurrentById();
 }

@@ -17,7 +17,7 @@ final class Sunrise
 
     public function getBlog()
     {
-        $domain = $this->domainAdapter->getCurrent();
+        $domain = $this->domainAdapter->getCurrentByDomain();
 
         if (! $domain) {
             return;

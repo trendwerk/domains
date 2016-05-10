@@ -3,33 +3,34 @@ namespace Trendwerk\Domains\Utilities;
 
 final class DotDomains implements DomainAdapterInterface
 {
-    private $currentBlog;
-
-    public function __construct(\WP_Site $currentBlog = null)
+    public function getCurrentByDomain()
     {
-        $this->currentBlog = $currentBlog;
+        return $this->getCurrent(function ($carry, $domain) {
+            if ($domain->domain == $_SERVER['HTTP_HOST']) {
+                return $domain;
+            }
+
+            return $carry;
+        });
     }
 
-    public function getCurrent()
+    public function getCurrentById()
+    {
+        return $this->getCurrent(function ($carry, $domain) {
+            if ($domain->blogId == get_current_blog_id()) {
+                return $domain;
+            }
+
+            return $carry;
+        });
+    }
+
+    private function getCurrent(callable $filterCallback)
     {
         $domains = $this->readFile();
 
         if ($domains && count($domains) > 0) {
-            if ($this->currentBlog) {
-                // Sunrise has booted, determine by blog ID
-                foreach ($domains as $domain) {
-                    if ($domain->blogId == get_current_blog_id()) {
-                        return $domain;
-                    }
-                }
-            } else {
-                // Determine by domain
-                foreach ($domains as $domain) {
-                    if ($domain->domain == $_SERVER['HTTP_HOST']) {
-                        return $domain;
-                    }
-                }
-            }
+            return array_reduce($domains, $filterCallback);
         }
     }
 
