@@ -3,6 +3,13 @@ namespace Trendwerk\Domains\Utilities;
 
 final class DotDomains implements DomainAdapterInterface
 {
+    public function __construct()
+    {
+        if (function_exists('wp_cache_add_global_groups')) {
+            wp_cache_add_global_groups('domains');
+        }
+    }
+
     public function getCurrentByDomain()
     {
         return $this->getCurrent(function ($carry, $domain) {
@@ -36,6 +43,10 @@ final class DotDomains implements DomainAdapterInterface
 
     private function readFile()
     {
+        if ($domains = wp_cache_get('read', 'domains')) {
+            return $domains;
+        }
+
         $file = $this->determineFile();
 
         if ($file) {
@@ -51,6 +62,8 @@ final class DotDomains implements DomainAdapterInterface
                     );
                 }, $domains);
             }
+
+            wp_cache_set('read', $domains, 'domains');
 
             return $domains;
         }
