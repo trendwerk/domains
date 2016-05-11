@@ -4,7 +4,7 @@ Domains for WordPress Multisite.
 Requires WordPress 4.5+. Specifically meant for using domains on *subdirectory* Multisite installs.
 
 ## Installation
-This plugin needs Composer to manage WordPress. To add this plugin to your project's development dependencies, run:
+If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
 composer require trendwerk/domains 0.1.0
 ```
