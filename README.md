@@ -19,8 +19,8 @@ Or manually add it to your `composer.json`:
 ## Setup
 The basic setup of this plugin consists of two steps:
 
-1. [Define the correct constants](#step-1-constants) in your WordPress config file (default: `wp-config.php`)
-2. [Setup the `.domains`](#domains) file which this plugin reads from
+1. [Define the correct constants](#constants) in your WordPress config file (default: `wp-config.php`)
+2. [Setup the `.domains`](#domains-1) file which this plugin reads from
 
 *Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install.*
 
@@ -28,7 +28,7 @@ The basic setup of this plugin consists of two steps:
 
 #### SUNRISE
 
-```
+```php
 define('SUNRISE', true);
 ```
 
@@ -36,7 +36,7 @@ This activates a WordPress drop-in plugin called `sunrise.php`. Allows this plug
 
 #### CONTENT_DIR
 
-```
+```php
 define('CONTENT_DIR', '/app');
 ```
 
@@ -44,8 +44,8 @@ This is only necessary if your content folder is not located in the default `wp-
 
 #### DOMAIN\_CURRENT\_SITE
 
-```
-define('DOMAIN\_CURRENT\_SITE', 'www.example.com');
+```php
+define('DOMAIN_CURRENT_SITE', 'www.example.com');
 ```
 
 Probably not necessary to say, but this should be defined when using Multisite.
