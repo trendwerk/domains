@@ -22,7 +22,7 @@ Or manually add it to your `composer.json`:
 The basic setup of this plugin consists of two steps:
 
 1. [Define the correct constants](#constants) in your WordPress configuration file (default: `wp-config.php`)
-2. [Setup the `.domains` file](#configuration), which is the main configuration file for this plugin
+2. [Configure the `.domains` file](#configuration), which is the main configuration file for this plugin
 
 ### Constants
 
