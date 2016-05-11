@@ -21,8 +21,8 @@ Or manually add it to your `composer.json`:
 ## Setup
 The basic setup of this plugin consists of two steps:
 
-1. [Define the correct constants](#constants) in your WordPress config file (default: `wp-config.php`)
-2. [Setup the `.domains` file](#domains-1) which this plugin reads it's domains from
+1. [Define the correct constants](#constants) in your WordPress configuration file (default: `wp-config.php`)
+2. [Setup the `.domains` file](#configuration), which is the main configuration file for this plugin
 
 ### Constants
 
@@ -52,7 +52,7 @@ Never define the following constants when using Multisite and this plugin:
 - `WP_HOME` - not used by Multisite
 - `WP_SITEURL` - not used by Multisite
 
-### .domains
+### Configuration
 
 The `.domains` file is the main configuration file for this plugin and contains all domains. It is set up in the format `blogId:url`. For example:
 
@@ -61,6 +61,6 @@ The `.domains` file is the main configuration file for this plugin and contains 
 3:www.example.org
 ```
 
-The domains file should be located in the root of your project.
+The domains file should be located in the root of your project. This file should probably be excluded from version control, since enviroments are usually run on different URLs. When using [Capistrano](http://capistranorb.com/) for deployment, it should be defined as a linked file.
 
 _Note: This plugin searches for the `.domains` file in the folder where WordPress is located and a maximum of two folders up._
