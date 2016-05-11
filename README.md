@@ -3,6 +3,8 @@ Domains for WordPress Multisite.
 
 Requires WordPress 4.5+. Specifically meant for using domains on *subdirectory* Multisite installs.
 
+_Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install._
+
 ## Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
@@ -20,13 +22,9 @@ Or manually add it to your `composer.json`:
 The basic setup of this plugin consists of two steps:
 
 1. [Define the correct constants](#constants) in your WordPress config file (default: `wp-config.php`)
-2. [Setup the `.domains`](#domains-1) file which this plugin reads from
-
-_Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install._
+2. [Setup the `.domains` file](#domains-1) which this plugin reads it's domains from
 
 ### Constants
-
-#### SUNRISE
 
 ```php
 define('SUNRISE', true);
@@ -34,21 +32,17 @@ define('SUNRISE', true);
 
 This activates a WordPress drop-in plugin called `sunrise.php`. Allows this plugin to perform actions right before Multisite is loaded.
 
-#### CONTENT_DIR
-
 ```php
 define('CONTENT_DIR', '/app');
 ```
 
 This is only necessary if your content folder is not located in the default `/wp-content` folder. The example above uses `/app`.
 
-#### DOMAIN\_CURRENT\_SITE
-
 ```php
 define('DOMAIN_CURRENT_SITE', 'www.example.com');
 ```
 
-Probably not necessary to say, but this should be defined when using Multisite.
+Probably not necessary to say, but this should be defined when using Multisite. This plugin relies on it being defined as well.
 
 #### Omit these constants
 
@@ -60,3 +54,13 @@ Never define the following constants when using Multisite and this plugin:
 
 ### .domains
 
+The `.domains` file is the main configuration file for this plugin and contains all domains. It is set up in the format `blogId:url`. For example:
+
+```
+2:www.example.com
+3:www.example.org
+```
+
+The domains file should be located in the root of your project.
+
+_Note: This plugin searches for the `.domains` file in the folder where WordPress is located and a maximum of two folders up._
