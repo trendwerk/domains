@@ -41,7 +41,7 @@ final class UrlHandler
             $request = str_replace(untrailingslashit($this->currentBlog->path), '', $_SERVER['REQUEST_URI']);
             $url = new Url($domain->domain, $request);
 
-            wp_redirect(trailingslashit($url->build()), 301);
+            wp_redirect($url->build(), 301);
             die();
         }
     }
