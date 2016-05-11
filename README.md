@@ -3,7 +3,7 @@ Domains for WordPress Multisite.
 
 Requires WordPress 4.5+. Specifically meant for using domains on *subdirectory* Multisite installs.
 
-_Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install._
+_Note: This plugin **does not** replace all URLs in the database so that everything is served from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install._
 
 ## Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
