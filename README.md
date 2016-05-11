@@ -40,7 +40,7 @@ This activates a WordPress drop-in plugin called `sunrise.php`. Allows this plug
 define('CONTENT_DIR', '/app');
 ```
 
-This is only necessary if your content folder is not located in the default `wp-content/` folder. The example above uses `/app`.
+This is only necessary if your content folder is not located in the default `/wp-content` folder. The example above uses `/app`.
 
 #### DOMAIN\_CURRENT\_SITE
 
