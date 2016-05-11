@@ -22,7 +22,7 @@ The basic setup of this plugin consists of two steps:
 1. [Define the correct constants](#constants) in your WordPress config file (default: `wp-config.php`)
 2. [Setup the `.domains`](#domains-1) file which this plugin reads from
 
-*Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install.*
+_Note: This plugin **does not** replace all URLs in the database so that everything is server from the right URL at all times. Therefore, it is recommended to install this immediately after creating a multisite install._
 
 ### Constants
 
