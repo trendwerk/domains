@@ -8,14 +8,7 @@ _Note: This plugin **does not** replace all URLs in the database so that everyth
 ## Installation
 If you're using Composer to manage WordPress, add this plugin to your project's dependencies. Run:
 ```sh
-composer require trendwerk/domains 0.1.0
-```
-
-Or manually add it to your `composer.json`:
-```json
-"require": {
-	"trendwerk/domains": "0.1.0"
-},
+composer require trendwerk/domains
 ```
 
 ## Setup
