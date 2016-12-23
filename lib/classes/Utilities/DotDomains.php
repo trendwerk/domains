@@ -13,7 +13,10 @@ final class DotDomains implements DomainAdapterInterface
     public function getCurrentByDomain()
     {
         return $this->getCurrent(function ($carry, $domain) {
-            if ($domain->domain == $_SERVER['HTTP_HOST']) {
+            if (in_array($_SERVER['HTTP_HOST'], $domain->domains)) {
+                $domain->domain = $_SERVER['HTTP_HOST'];
+                unset($domain->domains);
+
                 return $domain;
             }
 
@@ -25,6 +28,9 @@ final class DotDomains implements DomainAdapterInterface
     {
         return $this->getCurrent(function ($carry, $domain) {
             if ($domain->blogId == get_current_blog_id()) {
+                $domain->domain = array_shift($domain->domains);
+                unset($domain->domains);
+
                 return $domain;
             }
 
@@ -44,7 +50,7 @@ final class DotDomains implements DomainAdapterInterface
     private function readFile()
     {
         if ($domains = wp_cache_get('read', 'domains')) {
-            return $domains;
+            return $this->returnDomains($domains);
         }
 
         $file = $this->determineFile();
@@ -57,15 +63,15 @@ final class DotDomains implements DomainAdapterInterface
                     $settings = explode('=', $domain);
 
                     return (object) array(
-                        'blogId' => absint($settings[0]),
-                        'domain' => $settings[1],
+                        'blogId'  => absint($settings[0]),
+                        'domains' => explode(',', $settings[1]),
                     );
                 }, $domains);
             }
 
             wp_cache_set('read', $domains, 'domains');
 
-            return $domains;
+            return $this->returnDomains($domains);
         }
     }
 
@@ -85,5 +91,25 @@ final class DotDomains implements DomainAdapterInterface
 
             $depth++;
         } while ($depth <= 2);
+    }
+
+    /**
+     * Deep copy domains to stop referencing to object cache
+     * See https://core.trac.wordpress.org/ticket/30430
+     */
+    private function returnDomains($domains)
+    {
+        return $this->deepCopy($domains);
+    }
+
+    private function deepCopy($array)
+    {
+        $copy = [];
+
+        foreach ($array as $key => $value) {
+            $copy[$key] = clone $value;
+        }
+
+        return $copy;
     }
 }
