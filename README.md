@@ -47,13 +47,13 @@ Never define the following constants when using Multisite and this plugin:
 
 ### Configuration
 
-The `.domains` file is the main configuration file for this plugin and contains all domains. It is set up in the format `blogId:url`. For example:
+The `.domains` file is the main configuration file for this plugin and contains all domains. It is set up in the format `blogId:domain`. Domain aliases can be created by separating domains by a comma. For example:
 
 ```
-2=www.example.com
+2=www.example.com,example.com
 3=www.example.org
 ```
 
-The domains file should be located in the root of your project. This file should probably be excluded from version control, since enviroments are usually run on different URLs. When using [Capistrano](http://capistranorb.com/) for deployment, it should be defined as a linked file.
+The domains file should be located in the root of your project. This file should probably be excluded from version control, since enviroments are usually run on different domains. When using [Capistrano](http://capistranorb.com/) for deployment, it should be defined as a linked file.
 
 _Note: This plugin searches for the `.domains` file in the folder where WordPress is located and a maximum of two folders up._
